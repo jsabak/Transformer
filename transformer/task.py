@@ -91,7 +91,7 @@ class Task2:
         #   contain the equivalent of LocustRequest.
         #   See https://github.com/zalando-incubator/Transformer/issues/11.
         for req in sorted(requests, key=lambda r: r.timestamp):
-            if not on_blacklist(req.url.netloc):
+            if not on_blacklist(req.url):
                 yield cls(name=req.task_name(), request=req, statements=...)
 
     @classmethod
@@ -136,7 +136,7 @@ class Task(NamedTuple):
         """
 
         for req in sorted(requests, key=lambda r: r.timestamp):
-            if on_blacklist(req.url.netloc):
+            if on_blacklist(req.url):
                 continue
             else:
                 yield cls(name=req.task_name(), request=req)

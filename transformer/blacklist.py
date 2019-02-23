@@ -1,5 +1,7 @@
 import os
 import logging
+from re import search
+from urllib.parse import urlunparse
 
 
 def on_blacklist(url):
@@ -13,7 +15,8 @@ def on_blacklist(url):
             blacklist = [line.rstrip("\n") for line in file if len(line) > 1]
 
         for blacklist_item in blacklist:
-            if blacklist_item in url:
+            whole_url = urlunparse(url)
+            if search(blacklist_item, whole_url):
                 return True
 
         return False
